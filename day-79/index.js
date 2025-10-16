@@ -36,8 +36,9 @@ var threeSum = function (nums) {
 // First we divide the given array and sort both parts, And then we merge those two sorted parts 'conquer'.
 // Time Complexity is 'O*logN'
 
+// helper function
 function conquer (arr, f, m, l){
-  let i =f;
+  let i = f;
   let j = m+1;;
   let k = 0; 
   let tempArr = new Array(l-f+1).fill(0)
@@ -52,13 +53,13 @@ function conquer (arr, f, m, l){
   while(j<=l){
     tempArr[k++] = arr[j++];
   }
-
+  // adding the tempArr elements in to og array which are sorted
   i=f; k=0;
   while(k<tempArr.length){
     arr[i++] = tempArr[k++]
   }
 }
-
+// main funcition
 function divide (arr, f, l){
   if(f>=l) return;
   const mid = Math.floor((f+l)/2);
