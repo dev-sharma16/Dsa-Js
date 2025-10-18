@@ -11,18 +11,18 @@
 //? Code:-
 
 function quickSort(arr, first, last) {
-  if(first >= last) return;
+  if (first >= last) return;
   let pIndex = findPivotIndex(arr, first, last);
-  quickSort(arr, first, pIndex-1);
-  quickSort(arr, pIndex+1, last  );
+  quickSort(arr, first, pIndex - 1);
+  quickSort(arr, pIndex + 1, last);
   return arr;
 }
 
 function findPivotIndex(arr, first, last) {
   let pivot = arr[last];
   let i = first - 1;
-  for(let j=first; j<last; j++){
-    if(arr[j] < pivot){
+  for (let j = first; j < last; j++) {
+    if (arr[j] < pivot) {
       i++;
       swap(arr, i, j);
     }
@@ -43,29 +43,50 @@ function swap(arr, i, j) {
 // console.log("Og Array :", arr);
 // console.log("Sorted Array :", quickSort(arr, 0, arr.length-1));
 
-
-//* Cyclic Sort
-// It can only applied when it used on range of an elements like array's first and last element should be an number range from 1 to 5.
-// In this algo we find the index on an elemnt ,
-// Like this is the array : [3,2,5,1,4],
-// Sorted array : [1,2,3,4,5],
-// In Sorted array as you can see at Index 0 = 1, at 1 = 2,
-// So for sorting the array we traverse through the array and find the actual index for the current array element.
-// T.C : o(n), S.C : o(1).
-
-let arr = [3,2,5,1,4];
-console.log("Og Array :", arr);
-function cyclicSort(arr) {
+//? Leetcode : 268. Missing Number
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
   let i = 0;
-  while(i<arr.length){
-    const correctIndex = arr[i] - 1;
-
-    if(arr[i] !== arr[correctIndex]){
-      [arr[i], arr[correctIndex]] = [arr[correctIndex], arr[i]]
+  while (i < nums.length) {
+    let crctIdx = nums[i];
+    if (nums[i] < nums.length && nums[i] !== nums[crctIdx]) {
+      [nums[i], nums[crctIdx]] = [nums[crctIdx], nums[i]];
     } else {
-      i++
+      i++;
     }
   }
-}
-cyclicSort(arr);
-console.log("Sorted Array :", arr);
+
+  for (let j = 0; j < nums.length; j++) {
+    if (nums[j] !== j) return j;
+  }
+
+  return nums.length;
+};
+
+//? Leetcode : 448. Find All Numbers Disappeared in an Array
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findDisappearedNumbers = function (nums) {
+  const tempArr = [];
+  let i = 0;
+  while (i < nums.length) {
+    let crctIdx = nums[i] - 1;
+    if (nums[i] <= nums.length && nums[i] !== nums[crctIdx]) {
+      [nums[i], nums[crctIdx]] = [nums[crctIdx], nums[i]];
+    } else {
+      i++;
+    }
+  }
+
+  for (let j = 0; j < nums.length; j++) {
+    if (j + 1 !== nums[j]) {
+      tempArr.push(j + 1);
+    }
+  }
+  return tempArr;
+};
