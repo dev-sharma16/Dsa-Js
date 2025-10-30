@@ -165,3 +165,130 @@ var deleteDuplicates = function(head) {
     return dummy.next;
 };
 
+
+//? Leetcode : 160. Intersection of Two Linked Lists
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+    if (!headA || !headB) return null;
+
+    let pA = headA, pB = headB;
+
+    while(pA !== pB){
+        pA = (pA == null) ? headB : pA.next;
+        pB = (pB == null) ? headA : pB.next;
+    }
+
+    return pA
+};
+
+//? Leetcode : 203. Remove Linked List Elements
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function(head, val) {
+    if (!head) return head;
+
+    while (head && head.val === val) {
+        head = head.next;
+    }
+
+    let prev = head;
+    let temp = head ? head.next : null;
+
+    while (temp) {
+        if (temp.val === val) {
+            prev.next = temp.next;  
+        } else {
+            prev = temp;            
+        }
+        temp = temp.next;           
+    }
+
+    return head; 
+};
+
+//? Leetcode : 237. Delete Node in a Linked List
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+var deleteNode = function(node) {
+    node.val = node.next.val;
+    node.next = node.next.next;
+};
+
+//? Leetcode : 234. Palindrome Linked List
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+
+var reverseLL = function(head){
+    let prev = null;
+    let curr = head
+    while (curr){
+        let temp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = temp;
+    }
+
+    return prev; 
+}
+var isPalindrome = function(head) {
+    let isPlaindrome = true;
+    let slow = head;
+    let fast = head;
+
+    while (fast && fast.next){
+        slow = slow.next
+        fast = fast.next.next;
+    }
+
+    let mid = reverseLL(slow);
+
+    while(mid){
+        if(head.val != mid.val){
+            isPlaindrome = false;
+        }
+        head = head.next;
+        mid = mid.next;
+    }
+
+    return isPlaindrome;
+};
