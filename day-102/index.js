@@ -73,3 +73,68 @@ var addTwoNumbers = function(l1, l2) {
 
     return dummy.next;
 };
+
+//? Leetcode : 19. Remove Nth Node From End of List
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    let dummy = new ListNode(0, head);
+    let fast = dummy;
+    let slow = dummy;
+
+    for(let i=0; i<n; i++){
+        fast = fast.next;
+    }
+
+    while(fast && fast.next){
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    slow.next = slow.next.next;
+
+    return dummy.next;
+};
+
+//? Leetcode : 24. Swap Nodes in Pairs
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+
+var swapPairs = function(head) {
+    if(!head || !head.next) return head;
+
+    let dummy = new ListNode(0, head);
+    let prev = dummy;
+
+    while(prev.next && prev.next.next){
+        let first = prev.next;
+        let second = prev.next.next;
+
+        first.next = second.next;
+        second.next = first;
+        prev.next = second;
+
+        prev = first;
+    }
+
+    return dummy.next;
+};
